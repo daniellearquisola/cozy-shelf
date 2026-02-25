@@ -1,0 +1,47 @@
+body {
+  margin: 0;
+  font-family: system-ui, -apple-system, sans-serif;
+  background: #f7f3ef;
+  color: #2c2c2c;
+}
+
+.app {
+  max-width: 900px;
+  margin: 60px auto;
+  padding: 20px;
+}
+
+h1 {
+  margin-bottom: 10px;
+}
+
+.book-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+  gap: 16px;
+  margin-top: 30px;
+}
+
+.book-card {
+  background: white;
+  padding: 16px;
+  border-radius: 12px;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.06);
+}
+
+.book-card h3 {
+  margin: 0 0 6px;
+}
+
+.book-card p {
+  margin: 0 0 10px;
+  font-size: 14px;
+  color: #666;
+}
+
+.book-card span {
+  font-size: 12px;
+  background: #f0e6dc;
+  padding: 4px 8px;
+  border-radius: 20px;
+}
