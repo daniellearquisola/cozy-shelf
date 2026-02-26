@@ -4,14 +4,16 @@ export const books = [
     title: "A Court of Thorns and Roses",
     author: "Sarah J. Maas",
     genre: "Romantasy",
-    status: "finished"
+    status: "finished",
+    favorite: true
   },
   {
     id: 2,
     title: "Fourth Wing",
     author: "Rebecca Yarros",
     genre: "Romantasy",
-    status: "finished"
+    status: "finished", 
+    favorite: true
   },
   {
     id: 3,
@@ -29,7 +31,7 @@ export const books = [
   },
   {
     id: 5,
-    title: "The 7 1/2 Deaths of Evelyn Hardcastle",
+    title: "The Seven and a Half Deaths of Evelyn Hardcastle",
     author: "Stuart Turton",
     genre: "Thriller",
     status: "want"
@@ -44,7 +46,7 @@ export const books = [
   {
     id: 7,
     title: "Tomorrow, and Tomorrow, and Tomorrow",
-    author: "Gabriellee Zevin",
+    author: "Gabrielle Zevin",
     genre: "Contemporary",
     status: "finished"
   },
@@ -61,5 +63,12 @@ export const books = [
     author: "Alexandra Bracken",
     genre: "Fantasy",
     status: "finished"
+  },
+  {
+    id: 10,
+    title: "Mistborn",
+    author: "Brandon Sanderson",
+    genre: "Fantasy",
+    status: "want"
   }
 ]

@@ -13,9 +13,10 @@ function App() {
             <h3>{book.title}</h3>
             <p>{book.author}</p>
             <span>{book.genre}</span>
-
             <StatusBadge status={book.status} />
-
+            {book.favorite && (
+              <span className="favorite">⭐ Favorite</span>
+            )}
           </div>
         ))}
       </div>
