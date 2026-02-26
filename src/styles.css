@@ -1,7 +1,7 @@
 body {
   margin: 0;
-  font-family: system-ui, -apple-system, sans-serif;
-  background: #f7f3ef;
+  font-family: "Georgia", serif;
+  background: #f6f1eb;
   color: #2c2c2c;
 }
 
@@ -23,16 +23,16 @@ h1 {
 }
 
 .book-card {
-  background: white;
-  padding: 16px;
-  border-radius: 12px;
-  box-shadow: 0 4px 10px rgba(0,0,0,0.06);
+  background: #fffdfb;
+  padding: 18px;
+  border-radius: 14px;
+  box-shadow: 0 6px 14px rgba(0,0,0,0.06);
   transition: transform 0.2s ease, box-shadow 0.2s ease;
 }
 
 .book-card:hover {
-  transform: translateY(-4px);
-  box-shadow: 0 8px 18px rgba(0,0,0,0.1);
+  transform: translateY(-3px) scale(1.01);
+  box-shadow: 0 10px 22px rgba(0,0,0,0.08);
 }
 
 .book-card h3 {
@@ -45,11 +45,13 @@ h1 {
   color: #666;
 }
 
-.book-card span {
+.genre {
   font-size: 12px;
-  background: #f0e6dc;
-  padding: 4px 8px;
+  background: #f1e7dc;
+  padding: 5px 10px;
   border-radius: 20px;
+  display: inline-block;
+  margin-right: 8px;
 }
 
 .status {
@@ -72,26 +74,28 @@ h1 {
   padding: 4px 10px;
   border-radius: 20px;
   font-weight: 500;
+  margin-right: 8px;
 }
 
-.badge.want {
-  background: #e8f0fe;
+.badge.want { 
+  background: #e8f0fe; 
 }
 
-.badge.reading {
-  background: #f3e8ff;
+.badge.reading { 
+  background: #f3e8ff; 
 }
 
-.badge.finished {
-  background: #e6f4ea;
+.badge.finished { 
+  background: #e6f4ea; 
 }
 
 .favorite {
   display: inline-block;
-  margin-top: 6px;
-  margin-left: 6px;
+  margin-top: 8px;
   font-size: 12px;
   padding: 4px 10px;
   border-radius: 20px;
-  background: #fff4e5;
+  background: #fff0d6;
+  color: #7a4b00;
 }
+

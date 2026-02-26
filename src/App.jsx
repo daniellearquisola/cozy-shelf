@@ -12,7 +12,7 @@ function App() {
           <div key={book.id} className="book-card">
             <h3>{book.title}</h3>
             <p>{book.author}</p>
-            <span>{book.genre}</span>
+            <span className="genre">{book.genre}</span>
             <StatusBadge status={book.status} />
             {book.favorite && (
               <span className="favorite">⭐ Favorite</span>
