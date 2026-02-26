@@ -9,7 +9,7 @@ export const books = [
   {
     id: 2,
     title: "Fourth Wing",
-    author: "James Clear",
+    author: "Rebecca Yarros",
     genre: "Romantasy",
     status: "finished"
   },

@@ -1,5 +1,6 @@
 import './styles.css'
 import { books } from './data/books'
+import StatusBadge from './components/StatusBadge'
 
 function App() {
   return (
@@ -13,11 +14,7 @@ function App() {
             <p>{book.author}</p>
             <span>{book.genre}</span>
 
-            <div className="status">
-              {book.status === "want" && <span>📖 Want to Read</span>}
-              {book.status === "reading" && <span>📚 Reading</span>}
-              {book.status === "finished" && <span>✅ Finished</span>}
-            </div>
+            <StatusBadge status={book.status} />
 
           </div>
         ))}
