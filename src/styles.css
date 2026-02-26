@@ -45,3 +45,16 @@ h1 {
   padding: 4px 8px;
   border-radius: 20px;
 }
+
+.status {
+  margin-top: 10px;
+}
+
+.status span {
+  display: inline-block;
+  margin-top: 6px;
+  font-size: 12px;
+  padding: 4px 10px;
+  border-radius: 20px;
+  background: #e8f0fe;
+}
