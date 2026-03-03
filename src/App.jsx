@@ -27,6 +27,14 @@ function App() {
     )
   }
 
+  const counts = books.reduce((acc, book) => {
+    if (!acc[book.status]) {
+      acc[book.status] = 0
+    }
+    acc[book.status] += 1
+    return acc
+  }, {})
+
   return (
     <div className="app">
       <h1>📚 The Cozy Shelf</h1>
@@ -59,6 +67,12 @@ function App() {
             ))}
           </select>
         </div>
+      </div>
+
+      <div className="dashboard">
+        <span>📖 Want: {counts.want}</span>
+        <span>📚 Reading: {counts.reading}</span>
+        <span>✅ Finished: {counts.finished}</span>
       </div>
 
       <div className="book-grid">
