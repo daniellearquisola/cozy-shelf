@@ -1,7 +1,9 @@
 import { useState } from "react"
-import './styles.css'
 import { books as initialBooks } from "./data/books"
-import StatusBadge from './components/StatusBadge'
+
+import BookCard from "./BookCard"
+
+import "./styles.css"
 
 function App() {
   const [books, setBooks] = useState(initialBooks)
@@ -18,12 +20,11 @@ function App() {
 
   function handleUpdateStatus(id, newStatus) {
     setBooks(prevBooks =>
-      prevBooks.map(book => {
-        if (book.id === id) {
-          return { ...book, status: newStatus }
-        }
-        return book
-      })
+      prevBooks.map(book =>
+        book.id === id
+          ? { ...book, status: newStatus }
+          : book
+      )
     )
   }
 
@@ -46,7 +47,7 @@ function App() {
             value={selectedGenre}
             onChange={(e) => setSelectedGenre(e.target.value)}
           >
-            {genres.map((genre) => (
+            {genres.map(genre => (
               <option key={genre} value={genre}>
                 {genre}
               </option>
@@ -60,7 +61,7 @@ function App() {
             value={selectedStatus}
             onChange={(e) => setSelectedStatus(e.target.value)}
           >
-            {statuses.map((status) => (
+            {statuses.map(status => (
               <option key={status} value={status}>
                 {status}
               </option>
@@ -70,41 +71,18 @@ function App() {
       </div>
 
       <div className="dashboard">
-        <span>📖 Want: {counts.want}</span>
-        <span>📚 Reading: {counts.reading}</span>
-        <span>✅ Finished: {counts.finished}</span>
+        <span>📖 Want: {counts.want || 0}</span>
+        <span>📚 Reading: {counts.reading || 0}</span>
+        <span>✅ Finished: {counts.finished || 0}</span>
       </div>
 
       <div className="book-grid">
         {filteredBooks.map(book => (
-          <div key={book.id} className="book-card">
-            <h3>{book.title}</h3>
-            <p>{book.author}</p>
-            <span className="genre">{book.genre}</span>
-            <StatusBadge status={book.status} />
-            {book.favorite && (
-              <span className="favorite">⭐ Favorite</span>
-            )}
-            <div className="book-actions">
-              {book.status === "want" && (
-                <button
-                  className="mark-reading-btn"
-                  onClick={() => handleUpdateStatus(book.id, "reading")}
-                >
-                  Mark as Reading
-                </button>
-              )}
-
-              {book.status === "reading" && (
-                <button
-                  className="mark-finished-btn"
-                  onClick={() => handleUpdateStatus(book.id, "finished")}
-                >
-                  Mark as Finished
-                </button>
-              )}
-            </div>
-          </div>
+          <BookCard
+            key={book.id}
+            book={book}
+            onUpdateStatus={handleUpdateStatus}
+          />
         ))}
       </div>
     </div>
