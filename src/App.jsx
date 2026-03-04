@@ -40,65 +40,60 @@ function App() {
 
   return (
     <div className="app">
-      <h1>📚 The Cozy Shelf</h1>
+      <div className="top-panel">
+        <h1>📚 The Cozy Shelf</h1>
 
-      <div className="controls">
-        <div className="filters">
+        <div className="controls">
+          <div className="filters">
 
-          <div className="filter-group">
-            <label>Genre</label>
-            <select
-              value={selectedGenre}
-              onChange={(e) => setSelectedGenre(e.target.value)}
-            >
-              {genres.map((genre) => (
-                <option key={genre} value={genre}>
-                  {genre}
-                </option>
-              ))}
-            </select>
+            <div className="filter-group">
+              <label>Genre</label>
+              <select
+                value={selectedGenre}
+                onChange={(e) => setSelectedGenre(e.target.value)}
+              >
+                {genres.map((genre) => (
+                  <option key={genre} value={genre}>
+                    {genre}
+                  </option>
+                ))}
+              </select>
+            </div>
+
+            <div className="filter-group">
+              <label>Status</label>
+              <select
+                value={selectedStatus}
+                onChange={(e) => setSelectedStatus(e.target.value)}
+              >
+                {statuses.map((status) => (
+                  <option key={status} value={status}>
+                    {status}
+                  </option>
+                ))}
+              </select>
+            </div>
+
           </div>
 
-          <div className="filter-group">
-            <label>Status</label>
-            <select
-              value={selectedStatus}
-              onChange={(e) => setSelectedStatus(e.target.value)}
-            >
-              {statuses.map((status) => (
-                <option key={status} value={status}>
-                  {status}
-                </option>
-              ))}
-            </select>
+          <div className="search-bar">
+            <input
+              type="text"
+              placeholder="Search by title..."
+              value={searchTerm}
+              onChange={(e) => setSearchTerm(e.target.value)}
+            />
           </div>
-
         </div>
 
-        <div className="search-bar">
-          <input
-            type="text"
-            placeholder="Search by title..."
-            value={searchTerm}
-            onChange={(e) => setSearchTerm(e.target.value)}
-          />
+        <div className="dashboard">
+          <span>📖 Want: {counts.want}</span>
+          <span>📚 Reading: {counts.reading}</span>
+          <span>✅ Finished: {counts.finished}</span>
         </div>
-      </div>
-
-      <div className="dashboard">
-        <span>📖 Want: {counts.want}</span>
-        <span>📚 Reading: {counts.reading}</span>
-        <span>✅ Finished: {counts.finished}</span>
       </div>
 
       <div className="book-grid">
-        {filteredBooks.map((book) => (
-          <BookCard
-            key={book.id}
-            book={book}
-            onUpdateStatus={handleUpdateStatus}
-          />
-        ))}
         {filteredBooks.length === 0 ? (
           <p className="empty">No books match your filters.</p>
         ) : (
