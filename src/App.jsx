@@ -9,13 +9,15 @@ function App() {
   const [books, setBooks] = useState(initialBooks)
   const [selectedGenre, setSelectedGenre] = useState("All")
   const [selectedStatus, setSelectedStatus] = useState("All")
+  const [searchTerm, setSearchTerm] = useState("")
 
   const genres = ["All", ...new Set(books.map(book => book.genre))]
   const statuses = ["All", ...new Set(books.map(book => book.status))]
 
   const filteredBooks = books.filter(book =>
     (selectedGenre === "All" || book.genre === selectedGenre) &&
-    (selectedStatus === "All" || book.status === selectedStatus)
+    (selectedStatus === "All" || book.status === selectedStatus) &&
+    book.title.toLowerCase().includes(searchTerm.toLowerCase())
   )
 
   function handleUpdateStatus(id, newStatus) {
@@ -40,50 +42,74 @@ function App() {
     <div className="app">
       <h1>📚 The Cozy Shelf</h1>
 
-      <div className="filters">
-        <div className="filter-group">
-          <label>Genre</label>
-          <select
-            value={selectedGenre}
-            onChange={(e) => setSelectedGenre(e.target.value)}
-          >
-            {genres.map(genre => (
-              <option key={genre} value={genre}>
-                {genre}
-              </option>
-            ))}
-          </select>
+      <div className="controls">
+        <div className="filters">
+
+          <div className="filter-group">
+            <label>Genre</label>
+            <select
+              value={selectedGenre}
+              onChange={(e) => setSelectedGenre(e.target.value)}
+            >
+              {genres.map((genre) => (
+                <option key={genre} value={genre}>
+                  {genre}
+                </option>
+              ))}
+            </select>
+          </div>
+
+          <div className="filter-group">
+            <label>Status</label>
+            <select
+              value={selectedStatus}
+              onChange={(e) => setSelectedStatus(e.target.value)}
+            >
+              {statuses.map((status) => (
+                <option key={status} value={status}>
+                  {status}
+                </option>
+              ))}
+            </select>
+          </div>
+
         </div>
 
-        <div className="filter-group">
-          <label>Status</label>
-          <select
-            value={selectedStatus}
-            onChange={(e) => setSelectedStatus(e.target.value)}
-          >
-            {statuses.map(status => (
-              <option key={status} value={status}>
-                {status}
-              </option>
-            ))}
-          </select>
+        <div className="search-bar">
+          <input
+            type="text"
+            placeholder="Search by title..."
+            value={searchTerm}
+            onChange={(e) => setSearchTerm(e.target.value)}
+          />
         </div>
       </div>
 
       <div className="dashboard">
-        <span>📖 Want: {counts.want || 0}</span>
-        <span>📚 Reading: {counts.reading || 0}</span>
-        <span>✅ Finished: {counts.finished || 0}</span>
+        <span>📖 Want: {counts.want}</span>
+        <span>📚 Reading: {counts.reading}</span>
+        <span>✅ Finished: {counts.finished}</span>
       </div>
 
       <div className="book-grid">
-        {filteredBooks.map(book => (
+        {filteredBooks.map((book) => (
           <BookCard
             key={book.id}
             book={book}
             onUpdateStatus={handleUpdateStatus}
           />
         ))}
+        {filteredBooks.length === 0 ? (
+          <p className="empty">No books match your filters.</p>
+        ) : (
+          filteredBooks.map(book => (
+            <BookCard
+              key={book.id}
+              book={book}
+              onUpdateStatus={handleUpdateStatus}
+            />
+          ))
+        )}
       </div>
     </div>
   )
