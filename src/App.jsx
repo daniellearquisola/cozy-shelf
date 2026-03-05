@@ -1,4 +1,4 @@
-import { useState } from "react"
+import { useState, useEffect } from "react"
 import { books as initialBooks } from "./data/books"
 
 import BookCard from "./BookCard"
@@ -6,10 +6,17 @@ import BookCard from "./BookCard"
 import "./styles.css"
 
 function App() {
-  const [books, setBooks] = useState(initialBooks)
+  const [books, setBooks] = useState(() => {
+    const savedBooks = localStorage.getItem("books")
+    return savedBooks ? JSON.parse(savedBooks) : initialBooks
+  })
   const [selectedGenre, setSelectedGenre] = useState("All")
   const [selectedStatus, setSelectedStatus] = useState("All")
   const [searchTerm, setSearchTerm] = useState("")
+
+  useEffect(() => {
+    localStorage.setItem("books", JSON.stringify(books))
+  }, [books])
 
   const genres = ["All", ...new Set(books.map(book => book.genre))]
   const statuses = ["All", ...new Set(books.map(book => book.status))]
