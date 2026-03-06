@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react"
 import { books as initialBooks } from "./data/books"
 
-import BookCard from "./BookCard"
+import BookCard from "./components/BookCard"
 
 import "./styles.css"
 
