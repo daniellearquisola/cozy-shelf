@@ -253,3 +253,43 @@ h1 {
 .search-bar input {
   width: 220px;
 }
+
+.search-results {
+  margin-top: 30px;
+  padding-top: 20px;
+  border-top: 2px solid #e5e5e5;
+}
+
+.search-results h2 {
+  margin-bottom: 15px;
+}
+
+.add-book-btn {
+  font-size: 12px;
+  margin-top: 10px;
+  padding: 6px 10px;
+  border-radius: 6px;
+  border: none;
+  background-color: #8b6f47;
+  color: white;
+  cursor: pointer;
+}
+
+.add-book-btn:hover {
+  background-color: #735a39;
+}
+
+.remove-book-btn {
+  margin-top: 8px;
+  padding: 5px 10px;
+  border-radius: 10px;
+  border: 1px solid #c9b79f;
+  background-color: transparent;
+  color: #7c6a52;
+  cursor: pointer;
+  font-size: 12px;
+}
+
+.remove-book-btn:hover {
+  background-color: #f2ede7;
+}

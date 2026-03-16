@@ -32,6 +32,13 @@ function BookCard({ book, onUpdateStatus }) {
             Mark as Finished
           </button>
         )}
+
+        <button
+          className="remove-book-btn"
+          onClick={() => onRemove(book.id)}
+        >
+          Remove
+        </button>
       </div>
     </div>
   )
