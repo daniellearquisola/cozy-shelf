@@ -14,6 +14,8 @@ function App() {
   const [selectedStatus, setSelectedStatus] = useState("All")
   const [searchTerm, setSearchTerm] = useState("")
   const [searchResults, setSearchResults] = useState([])
+  const [isLoading, setIsLoading] = useState(false)
+  const [hasSearched, setHasSearched] = useState(false)
 
   const resultsRef = useRef(null)
 
@@ -84,6 +86,16 @@ function App() {
     )
   }
 
+  function toggleFavorite(id) {
+    setBooks(prevBooks =>
+      prevBooks.map(book =>
+        book.id === id
+          ? {...book, favorite: !book.favorite}
+          : book
+      )
+    )
+  }
+
   const counts = books.reduce((acc, book) => {
     if (!acc[book.status]) {
       acc[book.status] = 0
@@ -93,6 +105,9 @@ function App() {
   }, {})
 
   async function searchBooks(query) {
+    setIsLoading(true)
+    setHasSearched(true)
+
     try {
       const response = await fetch(
         `https://openlibrary.org/search.json?q=${encodeURIComponent(query)}`
@@ -110,6 +125,7 @@ function App() {
       }))
 
       setSearchResults(results)
+      setIsLoading(false)
 
     } catch (error) {
       console.error("Search failed:", error)
@@ -132,6 +148,10 @@ function App() {
     setBooks(prev =>
       prev.filter(book => book.id !== id)
     )
+  }
+
+  function clearSearchResults() {
+    setSearchResults([])
   }
 
   return (
@@ -204,6 +224,14 @@ function App() {
         </div>
       </div>
 
+      {isLoading && (
+        <p className="loading">Searching open library...</p>
+      )}
+
+      {!isLoading && hasSearched && searchResults.length === 0 && (
+        <p className="no-results">No books found. Try another search.</p>
+      )}
+
       <div className="book-grid">
         {filteredBooks.length === 0 ? (
           <p className="empty">No books match your filters.</p>
@@ -213,6 +241,7 @@ function App() {
               key={book.id}
               book={book}
               onUpdateStatus={handleUpdateStatus}
+              onToggleFavorite={toggleFavorite}
               onRemove={removeBook}
             />
           ))
@@ -222,6 +251,10 @@ function App() {
       {searchResults.length > 0 && (
         <div ref={resultsRef} className="search-results">
           <h2>🔎 Search Results</h2>
+
+          <button className="clear-results-btn" onClick={clearSearchResults}>
+            Clear Results
+          </button>
 
           <div className="book-grid">
             {searchResults.map(book => (

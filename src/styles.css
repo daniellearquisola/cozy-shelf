@@ -75,7 +75,6 @@ h1 {
   font-size: 12px;
   padding: 5px 10px;
   border-radius: 20px;
-  margin-right: 8px;
   background: #f4e1e6;
   color: #8b4b5a;
   border: 1px solid rgba(139, 75, 90, 0.2);
@@ -91,12 +90,10 @@ h1 {
 
 .badge {
   display: inline-block;
-  margin-top: 6px;
   font-size: 12px;
   padding: 4px 10px;
   border-radius: 20px;
   font-weight: 500;
-  margin-right: 8px;
 }
 
 .badge.want {
@@ -121,13 +118,36 @@ h1 {
 
 .favorite {
   display: inline-block;
-  margin-top: 8px;
   font-size: 12px;
   padding: 4px 10px;
   border-radius: 20px;
   background: #fff0d6;
   color: #7a4b00;
   border: 1px solid rgba(122, 75, 0, 0.2);
+  cursor: pointer;
+}
+
+.mark-favorite-btn {
+  padding: 8px 14px;
+  font-size: 12px;
+  border-radius: 8px;
+  border: 1px solid #e6c38b;
+  background: #ffffff;
+  color: #7a4b00;
+  font-family: "Georgia", serif;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.mark-favorite-btn:hover {
+  background: #fff6e8;
+  border-color: #e0b874;
+  transform: translateY(-1px);
+}
+
+.mark-favorite-btn:focus {
+  outline: none;
+  box-shadow: 0 0 0 2px rgba(139, 92, 246, 0.25);
 }
 
 /* Drop Down Filters */
@@ -161,7 +181,6 @@ h1 {
 /* Status Buttons */
 
 .mark-finished-btn {
-  margin-top: 10px;
   padding: 8px 14px;
   font-size: 12px;
   border-radius: 8px; /* less pill-like */
@@ -186,7 +205,6 @@ h1 {
 }
 
 .mark-reading-btn {
-  margin-top: 10px;
   padding: 8px 14px;
   font-size: 12px;
   border-radius: 8px;
@@ -204,10 +222,18 @@ h1 {
   transform: translateY(-1px);
 }
 
+.book-meta {
+  display: flex;
+  gap: 8px;
+  margin-top: 6px;
+  flex-wrap: wrap;
+}
+
 .book-actions {
   display: flex;
   gap: 8px;
   flex-wrap: wrap;
+  margin-top: 24px;
 }
 
 .dashboard {
@@ -280,16 +306,44 @@ h1 {
 }
 
 .remove-book-btn {
-  margin-top: 8px;
-  padding: 5px 10px;
-  border-radius: 10px;
-  border: 1px solid #c9b79f;
-  background-color: transparent;
-  color: #7c6a52;
-  cursor: pointer;
+  margin-top: 24px;
   font-size: 12px;
+  background: none;
+  border: none;
+  color: #9b8f84;
+  cursor: pointer;
+  font-family: "Georgia", serif;
+  padding: 4px 6px;
 }
 
 .remove-book-btn:hover {
+  color: #7a6f60;
+  text-decoration: underline;
+}
+
+.clear-results-btn {
+  margin-bottom: 12px;
+  padding: 6px 12px;
+  border-radius: 8px;
+  border: 2px solid #c9b79f;
+  background-color: transparent;
+  color: #7c6a52;
+  font-size: 14px;
+  cursor: pointer;
+}
+
+.clear-results-btn:hover {
   background-color: #f2ede7;
+}
+
+.loading {
+  margin-top: 20px;
+  font-style: italic;
+  color: #7a6f60;
+}
+
+.no-results {
+  margin-top: 16px;
+  font-style: italic;
+  color: #7a6f60;
 }
