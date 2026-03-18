@@ -1,9 +1,12 @@
 import { useState, useEffect, useRef } from "react"
 import { books as initialBooks } from "./data/books"
 
-import BookCard from "./components/BookCard"
+import BookCard from "./components/BookCard/BookCard"
+import Controls from "./components/Controls/Controls"
+import Dashboard from "./components/Dashboard/Dashboard"
+import SearchResults from "./components/SearchResults/SearchResults"
 
-import "./styles.css"
+import "./styles/styles.css"
 
 function App() {
   const [books, setBooks] = useState(() => {
@@ -159,69 +162,19 @@ function App() {
       <div className="top-panel">
         <h1>📚 The Cozy Shelf</h1>
 
-        <div className="controls">
-          <div className="filters">
+        <Controls
+          selectedGenre={selectedGenre}
+          setSelectedGenre={setSelectedGenre}
+          selectedStatus={selectedStatus}
+          setSelectedStatus={setSelectedStatus}
+          searchTerm={searchTerm}
+          setSearchTerm={setSearchTerm}
+          searchBooks={searchBooks}
+          genres={genres}
+          statuses={statuses}
+        />
 
-            <div className="filter-group">
-              <label>Genre</label>
-              <select
-                value={selectedGenre}
-                onChange={(e) => setSelectedGenre(e.target.value)}
-              >
-                {genres.map((genre) => (
-                  <option key={genre} value={genre}>
-                    {genre}
-                  </option>
-                ))}
-              </select>
-            </div>
-
-            <div className="filter-group">
-              <label>Status</label>
-              <select
-                value={selectedStatus}
-                onChange={(e) => setSelectedStatus(e.target.value)}
-              >
-                {statuses.map((status) => (
-                  <option key={status} value={status}>
-                    {status}
-                  </option>
-                ))}
-              </select>
-            </div>
-
-          </div>
-
-          <div className="search-bar">
-            <input
-              type="text"
-              placeholder="Search My Shelf..."
-              value={searchTerm}
-              onChange={(e) => {
-                setSearchTerm(e.target.value)
-                window.scrollTo({ top: 0, behavior: "smooth" })
-              }}
-            />
-          </div>
-
-          <div className="search-bar">
-            <input
-              type="text"
-              placeholder="Search Open Library..."
-              onKeyDown={(e) => {
-                if (e.key === "Enter") {
-                  searchBooks(e.target.value)
-                }
-              }}
-            />
-          </div>
-        </div>
-
-        <div className="dashboard">
-          <span>📖 Want: {counts.want}</span>
-          <span>📚 Reading: {counts.reading}</span>
-          <span>✅ Finished: {counts.finished}</span>
-        </div>
+        <Dashboard counts={counts} />
       </div>
 
       {isLoading && (
@@ -249,31 +202,12 @@ function App() {
       </div>
 
       {searchResults.length > 0 && (
-        <div ref={resultsRef} className="search-results">
-          <h2>🔎 Search Results</h2>
-
-          <button className="clear-results-btn" onClick={clearSearchResults}>
-            Clear Results
-          </button>
-
-          <div className="book-grid">
-            {searchResults.map(book => (
-              <div key={book.id} className="book-card">
-                <h3>{book.title}</h3>
-                <p>{book.author}</p>
-
-                <span className="genre">{book.genre}</span>
-
-                <button
-                  className="add-book-btn"
-                  onClick={() => addBook(book)}
-                >
-                  ➕ Add to Shelf
-                </button>
-              </div>
-            ))}
-          </div>
-        </div>
+        <SearchResults
+          searchResults={searchResults}
+          addBook={addBook}
+          clearSearchResults={clearSearchResults}
+          resultsRef={resultsRef}
+        />
       )}
     </div>
   )

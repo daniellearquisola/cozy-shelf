@@ -1,4 +1,4 @@
-import StatusBadge from "./StatusBadge"
+import StatusBadge from "../StatusBadge/StatusBadge"
 
 function BookCard({ book, onUpdateStatus, onToggleFavorite, onRemove }) {
   return (
