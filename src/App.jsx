@@ -1,7 +1,7 @@
-import { useState, useEffect, useRef } from "react"
-import { books as initialBooks } from "./data/books"
+import { useContext, useState, useEffect, useRef } from "react"
 
 import BookCard from "./components/BookCard/BookCard"
+import BookContext from "./context/BookContext"
 import Controls from "./components/Controls/Controls"
 import Dashboard from "./components/Dashboard/Dashboard"
 import SearchResults from "./components/SearchResults/SearchResults"
@@ -9,55 +9,14 @@ import SearchResults from "./components/SearchResults/SearchResults"
 import "./styles/styles.css"
 
 function App() {
-  const [books, setBooks] = useState(() => {
-    const savedBooks = localStorage.getItem("books")
-    return savedBooks ? JSON.parse(savedBooks) : initialBooks
-  })
+  const { books, addBook, removeBook, toggleFavorite, handleUpdateStatus } = useContext(BookContext)
   const [selectedGenre, setSelectedGenre] = useState("All")
   const [selectedStatus, setSelectedStatus] = useState("All")
   const [searchTerm, setSearchTerm] = useState("")
   const [searchResults, setSearchResults] = useState([])
   const [isLoading, setIsLoading] = useState(false)
   const [hasSearched, setHasSearched] = useState(false)
-
   const resultsRef = useRef(null)
-
-  useEffect(() => {
-    localStorage.setItem("books", JSON.stringify(books))
-  }, [books])
-
-  useEffect(() => {
-    async function fetchBooks() {
-      const response = await fetch(
-        "https://openlibrary.org/search.json?q=fantasy"
-      )
-
-      const data = await response.json()
-
-      const apiBooks = data.docs.slice(0, 20).map((book, index) => ({
-        id: `api-${index}`,
-        title: book.title,
-        author: book.author_name?.[0] || "Unknown",
-        genre: "Fantasy",
-        status: "want",
-        favorite: false
-      }))
-
-      setBooks(prev => {
-        const alreadyHasApiBooks = prev.some(book =>
-          String(book.id).startsWith("api-")
-        )
-
-        if (alreadyHasApiBooks) {
-          return prev
-        }
-
-        return [...prev, ...apiBooks]
-      })
-    }
-
-    fetchBooks()
-  }, [])
 
   useEffect(() => {
     if (searchResults.length > 0) {
@@ -78,26 +37,6 @@ function App() {
     (selectedStatus === "All" || book.status === selectedStatus) &&
     book.title.toLowerCase().includes(searchTerm.toLowerCase())
   )
-
-  function handleUpdateStatus(id, newStatus) {
-    setBooks(prevBooks =>
-      prevBooks.map(book =>
-        book.id === id
-          ? { ...book, status: newStatus }
-          : book
-      )
-    )
-  }
-
-  function toggleFavorite(id) {
-    setBooks(prevBooks =>
-      prevBooks.map(book =>
-        book.id === id
-          ? {...book, favorite: !book.favorite}
-          : book
-      )
-    )
-  }
 
   const counts = books.reduce((acc, book) => {
     if (!acc[book.status]) {
@@ -133,24 +72,6 @@ function App() {
     } catch (error) {
       console.error("Search failed:", error)
     }
-  }
-
-  function addBook(book) {
-    setBooks(prev => {
-      const alreadyExists = prev.some(
-        b => b.title === book.title && b.author === book.author
-      )
-
-      if (alreadyExists) return prev
-
-      return [...prev, book]
-    })
-  }
-
-  function removeBook(id) {
-    setBooks(prev =>
-      prev.filter(book => book.id !== id)
-    )
   }
 
   function clearSearchResults() {
@@ -193,9 +114,6 @@ function App() {
             <BookCard
               key={book.id}
               book={book}
-              onUpdateStatus={handleUpdateStatus}
-              onToggleFavorite={toggleFavorite}
-              onRemove={removeBook}
             />
           ))
         )}
@@ -204,7 +122,6 @@ function App() {
       {searchResults.length > 0 && (
         <SearchResults
           searchResults={searchResults}
-          addBook={addBook}
           clearSearchResults={clearSearchResults}
           resultsRef={resultsRef}
         />

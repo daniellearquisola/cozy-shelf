@@ -1,9 +1,14 @@
+import { useContext } from "react"
+import BookContext from "../../context/BookContext"
+
 function SearchResults({
   searchResults,
-  addBook,
   clearSearchResults,
   resultsRef
 }) {
+
+  const { addBook } = useContext(BookContext)
+  
   return (
     <div ref={resultsRef} className="search-results">
       <h2>🔎 Search Results</h2>

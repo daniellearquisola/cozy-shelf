@@ -1,6 +1,14 @@
+import { useContext } from "react"
+import BookContext from "../../context/BookContext"
 import StatusBadge from "../StatusBadge/StatusBadge"
 
-function BookCard({ book, onUpdateStatus, onToggleFavorite, onRemove }) {
+
+function BookCard({ book }) {
+  const {
+    removeBook,
+    toggleFavorite,
+    handleUpdateStatus
+  } = useContext(BookContext)
   return (
     <div className="book-card">
       <h3>{book.title}</h3>
@@ -14,7 +22,7 @@ function BookCard({ book, onUpdateStatus, onToggleFavorite, onRemove }) {
         {book.favorite && (
           <span
             className="favorite"
-            onClick={() => onToggleFavorite(book.id)}
+            onClick={() => toggleFavorite(book.id)}
           >
             ⭐ Favorited
           </span>
@@ -25,7 +33,7 @@ function BookCard({ book, onUpdateStatus, onToggleFavorite, onRemove }) {
         {!book.favorite && (
           <button
             className="mark-favorite-btn"
-            onClick={() => onToggleFavorite(book.id)}
+            onClick={() => toggleFavorite(book.id)}
           >
             ☆ Favorite This Book
           </button>
@@ -34,7 +42,7 @@ function BookCard({ book, onUpdateStatus, onToggleFavorite, onRemove }) {
         {book.status === "want" && (
           <button
             className="mark-reading-btn"
-            onClick={() => onUpdateStatus(book.id, "reading")}
+            onClick={() => handleUpdateStatus(book.id, "reading")}
           >
             Start Reading
           </button>
@@ -43,7 +51,7 @@ function BookCard({ book, onUpdateStatus, onToggleFavorite, onRemove }) {
       
       <button
         className="remove-book-btn"
-        onClick={() => onRemove(book.id)}
+        onClick={() => removeBook(book.id)}
       >
         Remove
       </button>
