@@ -9,7 +9,7 @@ import SearchResults from "./components/SearchResults/SearchResults"
 import "./styles/styles.css"
 
 function App() {
-  const { books } = useBooks()
+  const { books, favoriteBooks } = useBooks()
   const [selectedGenre, setSelectedGenre] = useState("All")
   const [selectedStatus, setSelectedStatus] = useState("All")
   const [searchTerm, setSearchTerm] = useState("")
@@ -17,6 +17,8 @@ function App() {
   const [isLoading, setIsLoading] = useState(false)
   const [hasSearched, setHasSearched] = useState(false)
   const resultsRef = useRef(null)
+
+  console.log("Favorites:", favoriteBooks)
 
   useEffect(() => {
     if (searchResults.length > 0) {
@@ -79,9 +81,9 @@ function App() {
   }
 
   return (
-    <div className="app">
+    <div className="min-h-screen bg-amber-50 p-6 max-w-4xl mx-auto">
       <div className="top-panel">
-        <h1>📚 The Cozy Shelf</h1>
+        <h1 className="text-3xl font-bold mb-4">📚 The Cozy Shelf</h1>
 
         <Controls
           selectedGenre={selectedGenre}
