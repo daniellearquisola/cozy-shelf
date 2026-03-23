@@ -4,12 +4,9 @@ import BookContext from "./BookContext"
 export function useBooks() {
   const context = useContext(BookContext)
 
-  const favoriteBooks = context.books.filter(
-    book => book.favorite
-  )
-
-  return {
-    ...context,
-    favoriteBooks
+  if (!context) {
+    throw new Error("useBooks must be used within BookProvider")
   }
+
+  return context
 }
