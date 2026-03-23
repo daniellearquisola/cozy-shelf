@@ -1,7 +1,7 @@
-import { useContext, useState, useEffect, useRef } from "react"
+import { useState, useEffect, useRef } from "react"
+import { useBooks } from "./context/useBooks"
 
 import BookCard from "./components/BookCard/BookCard"
-import BookContext from "./context/BookContext"
 import Controls from "./components/Controls/Controls"
 import Dashboard from "./components/Dashboard/Dashboard"
 import SearchResults from "./components/SearchResults/SearchResults"
@@ -9,7 +9,7 @@ import SearchResults from "./components/SearchResults/SearchResults"
 import "./styles/styles.css"
 
 function App() {
-  const { books, addBook, removeBook, toggleFavorite, handleUpdateStatus } = useContext(BookContext)
+  const { books } = useBooks()
   const [selectedGenre, setSelectedGenre] = useState("All")
   const [selectedStatus, setSelectedStatus] = useState("All")
   const [searchTerm, setSearchTerm] = useState("")
