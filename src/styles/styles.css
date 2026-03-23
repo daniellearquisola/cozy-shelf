@@ -7,19 +7,6 @@ body {
   color: #2c2c2c;
 }
 
-/* 📦 App Layout */
-
-.app {
-  max-width: 900px;
-  margin: 60px auto;
-  padding: 20px;
-  min-height: 100vh;
-}
-
-h1 {
-  margin-bottom: 12px;
-}
-
 .top-panel {
   position: sticky;
   top: 0;

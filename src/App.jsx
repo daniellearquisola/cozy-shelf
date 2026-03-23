@@ -79,7 +79,7 @@ function App() {
   }
 
   return (
-    <div className="min-h-screen bg-amber-50 p-6 max-w-4xl mx-auto">
+    <div className="min-h-screen p-6 max-w-4xl mx-auto">
       <div className="top-panel">
         <h1 className="text-3xl font-bold mb-4">📚 The Cozy Shelf</h1>
 
