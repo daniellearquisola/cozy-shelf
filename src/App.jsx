@@ -12,6 +12,7 @@ function App() {
   const { books } = useBooks()
   const [selectedGenre, setSelectedGenre] = useState("All")
   const [selectedStatus, setSelectedStatus] = useState("All")
+  const [showFavorites, setShowFavorites] = useState(false)
   const [searchTerm, setSearchTerm] = useState("")
   const [searchResults, setSearchResults] = useState([])
   const [isLoading, setIsLoading] = useState(false)
@@ -35,7 +36,8 @@ function App() {
   const filteredBooks = books.filter(book =>
     (selectedGenre === "All" || book.genre === selectedGenre) &&
     (selectedStatus === "All" || book.status === selectedStatus) &&
-    book.title.toLowerCase().includes(searchTerm.toLowerCase())
+    book.title.toLowerCase().includes(searchTerm.toLowerCase()) &&
+    (!showFavorites || book.favorite)
   )
 
   const counts = books.reduce((acc, book) => {
@@ -88,6 +90,8 @@ function App() {
           setSelectedGenre={setSelectedGenre}
           selectedStatus={selectedStatus}
           setSelectedStatus={setSelectedStatus}
+          showFavorites={showFavorites}
+          setShowFavorites={setShowFavorites}
           searchTerm={searchTerm}
           setSearchTerm={setSearchTerm}
           searchBooks={searchBooks}

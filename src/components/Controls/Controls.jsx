@@ -3,6 +3,8 @@ function Controls({
   setSelectedGenre,
   selectedStatus,
   setSelectedStatus,
+  showFavorites,
+  setShowFavorites,
   searchTerm,
   setSearchTerm,
   searchBooks,
@@ -11,36 +13,42 @@ function Controls({
 }) {
   return (
     <div className="controls">
-        <div className="filters">
+        <div className="filters flex flex-wrap items-end gap-4">
+            <div className="filter-group">
+                <label>Genre</label>
+                <select
+                value={selectedGenre}
+                onChange={(e) => setSelectedGenre(e.target.value)}
+                >
+                {genres.map((genre) => (
+                    <option key={genre} value={genre}>
+                    {genre}
+                    </option>
+                ))}
+                </select>
+            </div>
 
-        <div className="filter-group">
-            <label>Genre</label>
-            <select
-            value={selectedGenre}
-            onChange={(e) => setSelectedGenre(e.target.value)}
-            >
-            {genres.map((genre) => (
-                <option key={genre} value={genre}>
-                {genre}
-                </option>
-            ))}
-            </select>
-        </div>
+            <div className="filter-group">
+                <label>Status</label>
+                <select
+                value={selectedStatus}
+                onChange={(e) => setSelectedStatus(e.target.value)}
+                >
+                {statuses.map((status) => (
+                    <option key={status} value={status}>
+                    {status}
+                    </option>
+                ))}
+                </select>
+            </div>
 
-        <div className="filter-group">
-            <label>Status</label>
-            <select
-            value={selectedStatus}
-            onChange={(e) => setSelectedStatus(e.target.value)}
-            >
-            {statuses.map((status) => (
-                <option key={status} value={status}>
-                {status}
-                </option>
-            ))}
-            </select>
-        </div>
-
+            <button
+                onClick={() => setShowFavorites(prev => !prev)}
+                className="px-4 py-2 rounded-lg border text-sm font-medium transition
+                            bg-white hover:bg-gray-100"
+                >
+                {showFavorites ? "Show All" : "Show Favorites"}
+            </button>
         </div>
 
         <div className="search-bar">
