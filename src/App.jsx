@@ -48,6 +48,8 @@ function App() {
     return acc
   }, {})
 
+  const favoriteCount = books.filter(book => book.favorite).length
+
   async function searchBooks(query) {
     setIsLoading(true)
     setHasSearched(true)
@@ -99,7 +101,7 @@ function App() {
           statuses={statuses}
         />
 
-        <Dashboard counts={counts} />
+        <Dashboard counts={counts} favoriteCount={favoriteCount}/>
       </div>
 
       {isLoading && (
